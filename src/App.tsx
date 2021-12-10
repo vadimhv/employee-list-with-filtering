@@ -20,6 +20,9 @@ function App() {
         {id: 2, name: 'Andrew', lastName: 'Doe', position: 'manager'},
         {id: 3, name: 'Roman', lastName: 'Goe', position: 'manager'},
     ]);
+    const [name, onNameChange] = useState('');
+    const [lastName, onLastNameChange] = useState('');
+    const [position, onPositionChange] = useState('');
 
     useEffect(() => {
         setEmployeesToShow(employees);
@@ -35,7 +38,14 @@ function App() {
         setEmployeesToShow(employees.filter(e => filterValidation(e.name, searchValue) || filterValidation(e.lastName, searchValue) || filterValidation(e.position, searchValue)));
     }
 
-    const addEmployee = (employeeData: EmployeesDataType): void => {
+
+    const onAddEmployee = (): void => {
+        const employeeData = {
+            id: employees.length,
+            name: name,
+            lastName: lastName,
+            position: position
+        }
         setEmployees([...employees, employeeData]);
         setEmployeesToShow(employees);
     }
@@ -45,7 +55,7 @@ function App() {
             <Navbar/>
             <Routes>
                 <Route path={'/'} element={<Employees employeeFilter={employeeFilter} employees={employeesToShow}/>}/>
-                <Route path={'/add-employees'} element={<AddEmployee addEmployee={addEmployee} employees={employeesToShow}/>}/>
+                <Route path={'/add-employees'} element={<AddEmployee addEmployee={onAddEmployee} onNameChange={onNameChange} onLastNameChange={onLastNameChange} onPositionChange={onPositionChange}/>}/>
             </Routes>
         </div>
     );
