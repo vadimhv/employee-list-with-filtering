@@ -1,0 +1,10 @@
+.add-employee-button-wrapper button{
+    width: 94%;
+    display: block;
+    margin: 0 auto;
+}
+
+.add-employee-content-wrapper div div {
+    margin-right: 0;
+    margin-left: 0;
+}
