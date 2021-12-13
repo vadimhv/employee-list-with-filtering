@@ -53,10 +53,16 @@ function App() {
     return (
         <div className={'app-wrapper d-flex'}>
             <Navbar/>
-            <Routes>
-                <Route path={'/'} element={<Employees employeeFilter={employeeFilter} employees={employeesToShow}/>}/>
-                <Route path={'/add-employees'} element={<AddEmployee addEmployee={onAddEmployee} onNameChange={onNameChange} onLastNameChange={onLastNameChange} onPositionChange={onPositionChange}/>}/>
-            </Routes>
+            <div className={"content-wrapper"}>
+                <Routes>
+                    <Route path={'/'}
+                           element={<Employees employeeFilter={employeeFilter} employees={employeesToShow}/>}/>
+                    <Route path={'/add-employees'}
+                           element={<AddEmployee addEmployee={onAddEmployee} onNameChange={onNameChange}
+                                                 onLastNameChange={onLastNameChange}
+                                                 onPositionChange={onPositionChange}/>}/>
+
+                </Routes></div>
         </div>
     );
 }

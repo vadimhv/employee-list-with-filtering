@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
 
-interface Props {
-    employeeFilter: (searchValue: string) =>  void
+export interface Props {
+    employeeFilter: (searchValue: string) => void
 }
 
 const Search: React.FC<Props> = (props) => {
@@ -17,9 +19,20 @@ const Search: React.FC<Props> = (props) => {
     }
 
     return (
-        <div className={'search-wrapper'}>
-            <input type="text" placeholder={'Search...'} value={searchValue} onChange={(e) => handleSearchInputChange(e)}/>
-        </div>
+            <Box
+                data-testid="filter-input"
+                sx={{
+                    '& .MuiTextField-root': {m: 1, width: '25ch'},
+                }}
+            >
+                <div>
+                    <TextField inputProps={{"data-testid": "filterInput"}} name="filterInput" id="outlined-search" required label="Name"
+                               type="search"
+                               value={searchValue}
+                               fullWidth
+                               onChange={(e) => handleSearchInputChange(e)}/>
+                </div>
+            </Box>
     );
 };
 

@@ -2,3 +2,10 @@
     display: flex;
 }
 
+.app-wrapper {
+    height: 100%;
+}
+
+.content-wrapper {
+    width: 80%;
+}

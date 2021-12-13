@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {EmployeesDataType} from "../../App";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import {Button} from "@mui/material";
+import './AddEmployee.css';
 
 export interface Props {
     onNameChange: (name: string) => void,
@@ -43,35 +43,40 @@ const AddEmployee: React.FC<Props> = (props) => {
     }
 
     return (
-        <Box
-            data-testid="login-form"
-            component="form"
-            sx={{
-                '& .MuiTextField-root': {m: 1, width: '25ch'},
-            }}
-            noValidate
-            autoComplete="off"
-        >
-            <div>
-                <TextField inputProps={{"data-testid": "name"}} name="name" id="outlined-search" required label="Name"
-                           type="search"
-                           value={name}
-                           onChange={handleSetName}/>
-            </div>
-            <div>
-                <TextField inputProps={{"data-testid": "lastName"}} name="lastName" id="outlined-search" required fullWidth
-                           label="Last name"
-                           type="search" value={lastName}
-                           onChange={handleSetLastName}/>
-            </div>
-            <div>
-                <TextField inputProps={{"data-testid": "position"}} name="position" id="outlined-search" fullWidth label="Position"
-                           type="search"
-                           value={position}
-                           onChange={handleSetPosition}/>
-            </div>
-            <Button data-testid="submit" name="submit" variant="contained" fullWidth={true} onClick={handleSubmit}>ADD</Button>
-        </Box>
+        <div>
+            <Box
+                data-testid="login-form"
+                component="form"
+                className="add-employee-form"
+                sx={{
+                    '& .MuiTextField-root': {m: 1, width: '25ch'},
+                }}
+                noValidate
+                autoComplete="off"
+            >
+                <div>
+                    <TextField inputProps={{"data-testid": "name"}} name="name" id="outlined-search" required label="Name"
+                               type="search"
+                               value={name}
+                               onChange={handleSetName}/>
+                </div>
+                <div>
+                    <TextField inputProps={{"data-testid": "lastName"}} name="lastName" id="outlined-search" required fullWidth
+                               label="Last name"
+                               type="search" value={lastName}
+                               onChange={handleSetLastName}/>
+                </div>
+                <div>
+                    <TextField inputProps={{"data-testid": "position"}} name="position" id="outlined-search" fullWidth label="Position"
+                               type="search"
+                               value={position}
+                               onChange={handleSetPosition}/>
+                </div>
+                <div>
+                    <Button data-testid="submit" name="submit" variant="contained" fullWidth={true} onClick={handleSubmit}>ADD</Button>
+                </div>
+            </Box>
+        </div>
     );
 };
 

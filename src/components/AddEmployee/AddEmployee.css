@@ -8,3 +8,12 @@
     margin-right: 0;
     margin-left: 0;
 }
+
+.add-employee-form {
+    text-align: center;
+    transform: translateY(50%);
+}
+
+.css-1fu7jd5-MuiButtonBase-root-MuiButton-root {
+    width: 214px !important;
+}

@@ -1,7 +1,13 @@
 .navbar-wrapper {
     margin-right: 50px;
+    height: 100%;
 }
 
 .navbar-wrapper a {
     text-decoration: none;
+}
+
+.MuiMenuItem-root a {
+    color: #fff;
+    font-size: 16px;
 }

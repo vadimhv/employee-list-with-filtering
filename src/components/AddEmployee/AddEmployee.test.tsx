@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, waitForElement } from "@testing-library/react";
+import {fireEvent, render} from "@testing-library/react";
 
 import AddEmployee, {Props} from "./AddEmployee";
 
