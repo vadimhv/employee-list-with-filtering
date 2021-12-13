@@ -6,17 +6,18 @@ import {EmployeesDataType} from "../../App";
 
 interface Props {
     employees: Array<EmployeesDataType>,
-    employeeFilter: (searchValue: string) => void
+    employeeFilter: (searchValue: string) => void,
+    onDeleteEmployee: (id: number) => void
 }
 
 const Employees: React.FC<Props> = (props) => {
 
-    const {employees, employeeFilter} = props;
+    const {employees, employeeFilter, onDeleteEmployee} = props;
 
     return (
         <div>
             <Search employeeFilter={employeeFilter}/>
-            <EmployeesList employees={employees}/>
+            <EmployeesList employees={employees} onDeleteEmployee={onDeleteEmployee}/>
             {employees.length > 10 ? <Paginator/> : null}
         </div>
     );

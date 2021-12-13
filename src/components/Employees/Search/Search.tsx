@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
+import './Search.css';
 
 export interface Props {
     employeeFilter: (searchValue: string) => void
@@ -19,20 +20,22 @@ const Search: React.FC<Props> = (props) => {
     }
 
     return (
-            <Box
-                data-testid="filter-input"
-                sx={{
-                    '& .MuiTextField-root': {m: 1, width: '25ch'},
-                }}
-            >
-                <div>
-                    <TextField inputProps={{"data-testid": "filterInput"}} name="filterInput" id="outlined-search" required label="Name"
-                               type="search"
-                               value={searchValue}
-                               fullWidth
-                               onChange={(e) => handleSearchInputChange(e)}/>
-                </div>
-            </Box>
+            <div>
+                <Box
+                    data-testid="filter-input"
+                    sx={{
+                        '& .MuiTextField-root': {m: 1, width: '25ch'},
+                    }}
+                >
+                    <div>
+                        <TextField inputProps={{"data-testid": "filterInput"}} name="filterInput" id="outlined-search" label="Search..."
+                                   type="search"
+                                   value={searchValue}
+                                   fullWidth
+                                   onChange={(e) => handleSearchInputChange(e)}/>
+                    </div>
+                </Box>
+            </div>
     );
 };
 

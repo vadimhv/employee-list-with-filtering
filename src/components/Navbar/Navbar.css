@@ -11,3 +11,7 @@
     color: #fff;
     font-size: 16px;
 }
+
+.navbar-active {
+    color: #9bbaff;
+}

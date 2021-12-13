@@ -50,13 +50,17 @@ function App() {
         setEmployeesToShow(employees);
     }
 
+    const onDeleteEmployee = (id: number) => {
+      setEmployees(employeesToShow.filter(emp => id !== emp.id));
+    }
+
     return (
         <div className={'app-wrapper d-flex'}>
             <Navbar/>
             <div className={"content-wrapper"}>
                 <Routes>
                     <Route path={'/'}
-                           element={<Employees employeeFilter={employeeFilter} employees={employeesToShow}/>}/>
+                           element={<Employees employeeFilter={employeeFilter} employees={employeesToShow} onDeleteEmployee={onDeleteEmployee}/>}/>
                     <Route path={'/add-employees'}
                            element={<AddEmployee addEmployee={onAddEmployee} onNameChange={onNameChange}
                                                  onLastNameChange={onLastNameChange}

@@ -1,6 +1,7 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
+import "../Navbar.css"
 
 interface Props {
     link: string

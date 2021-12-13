@@ -17,3 +17,21 @@
 .css-1fu7jd5-MuiButtonBase-root-MuiButton-root {
     width: 214px !important;
 }
+
+.add-employee-title {
+    font-size: 16px;
+    text-transform: lowercase;
+    display: block;
+    padding-bottom: 20px;
+}
+
+.inputs-wrapper:first-child {
+    padding-top: 20px;
+}
+
+
+.inputs-wrapper .MuiTextField-root {
+    margin: 8px !important;
+    width: 25ch !important;
+}
+

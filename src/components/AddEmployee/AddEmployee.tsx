@@ -21,7 +21,9 @@ const AddEmployee: React.FC<Props> = (props) => {
 
     const handleSubmit = (e: React.FormEvent<EventTarget>) => {
         e.preventDefault();
-        addEmployee(name, lastName, position);
+        if(name.length > 0 && lastName.length > 0) {
+            addEmployee(name, lastName, position);
+        }
         setName('');
         setLastName('');
         setPosition('');
@@ -54,19 +56,22 @@ const AddEmployee: React.FC<Props> = (props) => {
                 noValidate
                 autoComplete="off"
             >
-                <div>
+                <span className={"add-employee-title"}>
+                    You can add employee below...
+                </span>
+                <div className={"inputs-wrapper"}>
                     <TextField inputProps={{"data-testid": "name"}} name="name" id="outlined-search" required label="Name"
                                type="search"
                                value={name}
                                onChange={handleSetName}/>
                 </div>
-                <div>
+                <div className={"inputs-wrapper"}>
                     <TextField inputProps={{"data-testid": "lastName"}} name="lastName" id="outlined-search" required fullWidth
                                label="Last name"
                                type="search" value={lastName}
                                onChange={handleSetLastName}/>
                 </div>
-                <div>
+                <div className={"inputs-wrapper"}>
                     <TextField inputProps={{"data-testid": "position"}} name="position" id="outlined-search" fullWidth label="Position"
                                type="search"
                                value={position}

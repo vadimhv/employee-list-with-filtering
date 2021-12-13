@@ -1,11 +1,14 @@
 import React from "react";
-import {fireEvent, render} from "@testing-library/react";
+import {render} from "@testing-library/react";
 
 import EmployeesItem, {Props} from "./EmployeesItem";
 
 function renderLoginForm(props: Partial<Props> = {}) {
     const defaultProps: Props = {
-        employee: {id: 1, name: 'testName', lastName: 'testLastName', position: 'testPosition'}
+        employee: {id: 1, name: 'testName', lastName: 'testLastName', position: 'testPosition'},
+        onDeleteEmployee() {
+            return;
+        }
     };
     return render(<EmployeesItem {...defaultProps} {...props} />);
 }

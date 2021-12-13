@@ -11,7 +11,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 interface Props {
-    employees: Array<EmployeesDataType>
+    employees: Array<EmployeesDataType>,
+    onDeleteEmployee: (id: number) => void
 }
 
 export const StyledTableCell = styled(TableCell)(({theme}) => ({
@@ -25,7 +26,7 @@ export const StyledTableCell = styled(TableCell)(({theme}) => ({
 }));
 
 const EmployeesList: React.FC<Props> = (props) => {
-    const {employees} = props;
+    const {employees, onDeleteEmployee} = props;
 
     return (
         <TableContainer component={Paper}>
@@ -35,12 +36,13 @@ const EmployeesList: React.FC<Props> = (props) => {
                         <StyledTableCell>First name</StyledTableCell>
                         <StyledTableCell>Last name</StyledTableCell>
                         <StyledTableCell>Position</StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {employees.map(employee => {
                         return (
-                            <EmployeesItem key={employee.id} employee={employee}/>);
+                            <EmployeesItem key={employee.id} employee={employee} onDeleteEmployee={onDeleteEmployee}/>);
                     })}
                 </TableBody>
             </Table>
