@@ -7,7 +7,7 @@ import {EmployeesDataType} from "../../App";
 interface Props {
     employees: Array<EmployeesDataType>,
     employeeFilter: (searchValue: string) => void,
-    onDeleteEmployee: (id: number) => void
+    onDeleteEmployee: (id?: number ) => void
 }
 
 const Employees: React.FC<Props> = (props) => {

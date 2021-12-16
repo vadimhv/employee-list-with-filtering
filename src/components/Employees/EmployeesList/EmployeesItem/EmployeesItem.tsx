@@ -8,7 +8,7 @@ import '../EmployeesList.css';
 
 export interface Props {
     employee: EmployeesDataType,
-    onDeleteEmployee: (id: number) => void
+    onDeleteEmployee: (id?: number) => void
 }
 
 const EmployeesItem: React.FC<Props> = (props) => {

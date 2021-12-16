@@ -1,49 +1,42 @@
-import React, {useState} from 'react';
-import Box from '@mui/material/Box';
+import React from 'react';
 import TextField from '@mui/material/TextField';
-import {Button} from "@mui/material";
 import './AddEmployee.css';
+import {ErrorMessage, useFormik} from 'formik';
+import {EmployeesDataType} from "../../App";
+import {Button} from "@mui/material";
+import Box from "@mui/material/Box";
+import Error from '../common/Error'
 
 export interface Props {
-    onNameChange: (name: string) => void,
-    onLastNameChange: (lastName: string) => void,
-    onPositionChange: (position: string) => void,
     addEmployee: (name: string, lastName: string, position: string) => void
 }
 
 const AddEmployee: React.FC<Props> = (props) => {
 
-    const {onNameChange, onLastNameChange, onPositionChange, addEmployee} = props;
+    const {addEmployee} = props;
 
-    const [name, setName] = useState<string>('');
-    const [lastName, setLastName] = useState<string>('');
-    const [position, setPosition] = useState<string>('');
+    const initialValues: EmployeesDataType = {name: '', lastName: '', position: ''};
 
-    const handleSubmit = (e: React.FormEvent<EventTarget>) => {
-        e.preventDefault();
-        if(name.length > 0 && lastName.length > 0) {
-            addEmployee(name, lastName, position);
-        }
-        setName('');
-        setLastName('');
-        setPosition('');
-    };
-    const handleSetName = (e: React.FormEvent<EventTarget>) => {
-        const target = e.target as HTMLInputElement;
-        onNameChange(target.value);
-        setName(target.value);
-    }
-    const handleSetLastName = (e: React.FormEvent<EventTarget>) => {
-        const target = e.target as HTMLInputElement;
-        onLastNameChange(target.value);
-        setLastName(target.value);
-    }
-    const handleSetPosition = (e: React.FormEvent<EventTarget>) => {
-        const target = e.target as HTMLInputElement;
-        onPositionChange(target.value);
-        setPosition(target.value);
-    }
-
+    const formik = useFormik({
+        initialValues: initialValues,
+        validate: values => {
+            const errors = {} as {name: string, lastName: string};
+            if (!values.name) {
+                errors.name = 'The field is required';
+            }
+            if (!values.lastName) {
+                errors.lastName = 'The field is required'
+            }
+            return errors;
+        },
+        onSubmit: (values, {setSubmitting}) => {
+            addEmployee(values.name, values.lastName, values.position as string);
+            values.name = "";
+            values.lastName = "";
+            values.position = "";
+            setSubmitting(false)
+        },
+    });
     return (
         <div>
             <Box
@@ -55,30 +48,36 @@ const AddEmployee: React.FC<Props> = (props) => {
                 }}
                 noValidate
                 autoComplete="off"
+                onSubmit={formik.handleSubmit}
             >
-                <span className={"add-employee-title"}>
-                    You can add employee below...
-                </span>
                 <div className={"inputs-wrapper"}>
-                    <TextField inputProps={{"data-testid": "name"}} name="name" id="outlined-search" required label="Name"
+                    <TextField inputProps={{"data-testid": "name"}} name="name" id="outlined-search" required
+                               label="Name"
                                type="search"
-                               value={name}
-                               onChange={handleSetName}/>
+                               value={formik.values.name}
+                               onBlur={formik.handleBlur}
+                               onChange={formik.handleChange}/>
                 </div>
+                {formik.errors.name && formik.touched.name && <Error text={formik.errors.name} />}
                 <div className={"inputs-wrapper"}>
-                    <TextField inputProps={{"data-testid": "lastName"}} name="lastName" id="outlined-search" required fullWidth
+                    <TextField inputProps={{"data-testid": "lastName"}} name="lastName" id="outlined-search" required
+                               fullWidth
                                label="Last name"
-                               type="search" value={lastName}
-                               onChange={handleSetLastName}/>
+                               type="search" value={formik.values.lastName}
+                               onBlur={formik.handleBlur}
+                               onChange={formik.handleChange}/>
                 </div>
+                {formik.errors.lastName && formik.touched.lastName && <Error text={formik.errors.lastName} />}
                 <div className={"inputs-wrapper"}>
-                    <TextField inputProps={{"data-testid": "position"}} name="position" id="outlined-search" fullWidth label="Position"
+                    <TextField inputProps={{"data-testid": "position"}} name="position" id="outlined-search" fullWidth
+                               label="Position"
                                type="search"
-                               value={position}
-                               onChange={handleSetPosition}/>
+                               value={formik.values.position}
+                               onChange={formik.handleChange}/>
                 </div>
                 <div>
-                    <Button data-testid="submit" name="submit" variant="contained" fullWidth={true} onClick={handleSubmit}>ADD</Button>
+                    <Button data-testid="submit" name="submit" type={"submit"} variant="contained" fullWidth={true} disabled={formik.isSubmitting}
+                    >ADD</Button>
                 </div>
             </Box>
         </div>

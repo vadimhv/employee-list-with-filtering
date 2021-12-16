@@ -6,7 +6,7 @@ import Employees from "./components/Employees/Employees";
 import AddEmployee from "./components/AddEmployee/AddEmployee";
 
 export interface EmployeesDataType {
-    id: number,
+    id?: number,
     name: string,
     lastName: string,
     position: string | null
@@ -20,9 +20,6 @@ function App() {
         {id: 2, name: 'Andrew', lastName: 'Doe', position: 'manager'},
         {id: 3, name: 'Roman', lastName: 'Goe', position: 'manager'},
     ]);
-    const [name, onNameChange] = useState('');
-    const [lastName, onLastNameChange] = useState('');
-    const [position, onPositionChange] = useState('');
 
     useEffect(() => {
         setEmployeesToShow(employees);
@@ -39,7 +36,7 @@ function App() {
     }
 
 
-    const onAddEmployee = (): void => {
+    const onAddEmployee = (name: string, lastName: string, position: string): void => {
         const employeeData = {
             id: employees.length,
             name: name,
@@ -50,7 +47,7 @@ function App() {
         setEmployeesToShow(employees);
     }
 
-    const onDeleteEmployee = (id: number) => {
+    const onDeleteEmployee = (id?: number) => {
       setEmployees(employeesToShow.filter(emp => id !== emp.id));
     }
 
@@ -62,9 +59,7 @@ function App() {
                     <Route path={'/'}
                            element={<Employees employeeFilter={employeeFilter} employees={employeesToShow} onDeleteEmployee={onDeleteEmployee}/>}/>
                     <Route path={'/add-employees'}
-                           element={<AddEmployee addEmployee={onAddEmployee} onNameChange={onNameChange}
-                                                 onLastNameChange={onLastNameChange}
-                                                 onPositionChange={onPositionChange}/>}/>
+                           element={<AddEmployee addEmployee={onAddEmployee} />}/>
 
                 </Routes></div>
         </div>

@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper';
 
 interface Props {
     employees: Array<EmployeesDataType>,
-    onDeleteEmployee: (id: number) => void
+    onDeleteEmployee: (id?: number) => void
 }
 
 export const StyledTableCell = styled(TableCell)(({theme}) => ({
