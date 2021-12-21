@@ -2,3 +2,10 @@
     color: red;
     font-size: 12px;
 }
+
+.success {
+    display: block;
+    margin-top: 15px;
+    color: green;
+    font-size: 12px;
+}

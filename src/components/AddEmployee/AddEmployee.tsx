@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TextField from '@mui/material/TextField';
 import './AddEmployee.css';
-import {ErrorMessage, useFormik} from 'formik';
+import {useFormik} from 'formik';
 import {EmployeesDataType} from "../../App";
 import {Button} from "@mui/material";
 import Box from "@mui/material/Box";
-import Error from '../common/Error'
+import InfoMessage from '../common/InfoMessage'
 
 export interface Props {
     addEmployee: (name: string, lastName: string, position: string) => void
@@ -14,6 +14,8 @@ export interface Props {
 const AddEmployee: React.FC<Props> = (props) => {
 
     const {addEmployee} = props;
+
+    const [addedMessage, setAddedMessage] = useState(false);
 
     const initialValues: EmployeesDataType = {name: '', lastName: '', position: ''};
 
@@ -34,6 +36,8 @@ const AddEmployee: React.FC<Props> = (props) => {
             values.name = "";
             values.lastName = "";
             values.position = "";
+            setAddedMessage(true);
+            setTimeout(() => setAddedMessage(false), 2000);
             setSubmitting(false)
         },
     });
@@ -58,7 +62,7 @@ const AddEmployee: React.FC<Props> = (props) => {
                                onBlur={formik.handleBlur}
                                onChange={formik.handleChange}/>
                 </div>
-                {formik.errors.name && formik.touched.name && <Error text={formik.errors.name} />}
+                {formik.errors.name && formik.touched.name && <InfoMessage text={formik.errors.name} type={"error"} />}
                 <div className={"inputs-wrapper"}>
                     <TextField inputProps={{"data-testid": "lastName"}} name="lastName" id="outlined-search" required
                                fullWidth
@@ -67,7 +71,7 @@ const AddEmployee: React.FC<Props> = (props) => {
                                onBlur={formik.handleBlur}
                                onChange={formik.handleChange}/>
                 </div>
-                {formik.errors.lastName && formik.touched.lastName && <Error text={formik.errors.lastName} />}
+                {formik.errors.lastName && formik.touched.lastName && <InfoMessage text={formik.errors.lastName} type={"error"} />}
                 <div className={"inputs-wrapper"}>
                     <TextField inputProps={{"data-testid": "position"}} name="position" id="outlined-search" fullWidth
                                label="Position"
@@ -79,6 +83,7 @@ const AddEmployee: React.FC<Props> = (props) => {
                     <Button data-testid="submit" name="submit" type={"submit"} variant="contained" fullWidth={true} disabled={formik.isSubmitting}
                     >ADD</Button>
                 </div>
+                {addedMessage && Object.keys(formik.errors).length === 0 ?  <InfoMessage text={"Employee was added"} type={"success"} /> : null}
             </Box>
         </div>
     );

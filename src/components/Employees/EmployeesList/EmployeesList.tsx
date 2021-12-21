@@ -13,6 +13,7 @@ import Paper from '@mui/material/Paper';
 interface Props {
     employees: Array<EmployeesDataType>,
     onDeleteEmployee: (id?: number) => void
+    onDataChange: (id: number, newName: string, newLastName: string, newPositionName: string) => void
 }
 
 export const StyledTableCell = styled(TableCell)(({theme}) => ({
@@ -25,8 +26,18 @@ export const StyledTableCell = styled(TableCell)(({theme}) => ({
     },
 }));
 
+const StyledTableRow = styled(TableRow)(({theme}) => ({
+    '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+        border: 0,
+    },
+}));
+
 const EmployeesList: React.FC<Props> = (props) => {
-    const {employees, onDeleteEmployee} = props;
+    const {employees, onDeleteEmployee, onDataChange} = props;
 
     return (
         <TableContainer component={Paper}>
@@ -42,7 +53,12 @@ const EmployeesList: React.FC<Props> = (props) => {
                 <TableBody>
                     {employees.map(employee => {
                         return (
-                            <EmployeesItem key={employee.id} employee={employee} onDeleteEmployee={onDeleteEmployee}/>);
+
+                            <StyledTableRow key={employee.id}>
+                                <EmployeesItem employee={employee} onDataChange={onDataChange}
+                                               onDeleteEmployee={onDeleteEmployee}/>
+                            </StyledTableRow>
+                        );
                     })}
                 </TableBody>
             </Table>

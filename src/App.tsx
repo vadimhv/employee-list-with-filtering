@@ -12,8 +12,8 @@ export interface EmployeesDataType {
     position: string | null
 }
 
-function App() {
-
+const App = () => {
+    console.log('render')
     const [employees, setEmployees] = useState<Array<EmployeesDataType>>([
         {id: 0, name: 'John', lastName: 'Doe', position: 'manager'},
         {id: 1, name: 'Peter', lastName: 'Doe', position: 'manager'},
@@ -51,19 +51,30 @@ function App() {
       setEmployees(employeesToShow.filter(emp => id !== emp.id));
     }
 
+    const onDataChange = (id: number, newName: string, newLastName: string, newPositionName: string) => {
+        setEmployees(employees.filter(emp => {
+            if(id === emp.id) {
+                emp.name = newName;
+                emp.lastName = newLastName;
+                emp.position = newPositionName;
+            }
+            return emp
+        }))
+    }
+
     return (
         <div className={'app-wrapper d-flex'}>
             <Navbar/>
             <div className={"content-wrapper"}>
                 <Routes>
                     <Route path={'/'}
-                           element={<Employees employeeFilter={employeeFilter} employees={employeesToShow} onDeleteEmployee={onDeleteEmployee}/>}/>
+                           element={<Employees employeeFilter={employeeFilter} employees={employeesToShow} onDeleteEmployee={onDeleteEmployee} onDataChange={onDataChange}/>}/>
                     <Route path={'/add-employees'}
                            element={<AddEmployee addEmployee={onAddEmployee} />}/>
 
                 </Routes></div>
         </div>
     );
-}
+};
 
 export default App;
