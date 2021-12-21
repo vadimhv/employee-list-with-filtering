@@ -1,7 +1,7 @@
 import React from "react";
 import {fireEvent, render} from "@testing-library/react";
 
-import Search, {Props} from "./Search";
+import SearchFilter, {Props} from "./SearchFilter";
 
 function renderLoginForm(props: Partial<Props> = {}) {
     const defaultProps: Props = {
@@ -9,10 +9,10 @@ function renderLoginForm(props: Partial<Props> = {}) {
             return
         }
     };
-    return render(<Search {...defaultProps} {...props} />);
+    return render(<SearchFilter {...defaultProps} {...props} />);
 }
 
-describe("<Search />", () => {
+describe("<SearchFilter />", () => {
     test("should display a blank input to filter", async () => {
         const { findByTestId } = renderLoginForm();
 

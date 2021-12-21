@@ -13,29 +13,24 @@ export interface EmployeesDataType {
 }
 
 const App = () => {
-    console.log('render')
     const [employees, setEmployees] = useState<Array<EmployeesDataType>>([
         {id: 0, name: 'John', lastName: 'Doe', position: 'manager'},
         {id: 1, name: 'Peter', lastName: 'Foe', position: 'manager'},
         {id: 2, name: 'Andrew', lastName: 'Moe', position: 'manager'},
         {id: 3, name: 'Roman', lastName: 'Goe', position: 'manager'},
     ]);
+    const [employeesToShow, setEmployeesToShow] = useState<Array<EmployeesDataType>>([]);
 
     useEffect(() => {
         setEmployeesToShow(employees);
     }, [employees])
 
-    const [employeesToShow, setEmployeesToShow] = useState<Array<EmployeesDataType>>([]);
-
     const filterValidation = (text: string | null, searchText: string): boolean | undefined => {
         return text?.toLowerCase().includes(searchText.toLowerCase());
     }
-
-    const employeeFilter = (searchValue: string): void => {
+    const onFilterEmployee = (searchValue: string): void => {
         setEmployeesToShow(employees.filter(e => filterValidation(e.name, searchValue) || filterValidation(e.lastName, searchValue) || filterValidation(e.position, searchValue)));
     }
-
-
     const onAddEmployee = (name: string, lastName: string, position: string): void => {
         const employeeData = {
             id: employees.length,
@@ -46,12 +41,10 @@ const App = () => {
         setEmployees([...employees, employeeData]);
         setEmployeesToShow(employees);
     }
-
     const onDeleteEmployee = (id?: number) => {
         setEmployees(employeesToShow.filter(emp => id !== emp.id));
     }
-
-    const onDataChange = (id: number, newName: string, newLastName: string, newPositionName: string) => {
+    const onEmployeeDataChange = (id: number, newName: string, newLastName: string, newPositionName: string) => {
         setEmployees(employees.filter(emp => {
             if (id === emp.id) {
                 emp.name = newName;
@@ -61,8 +54,7 @@ const App = () => {
             return emp
         }))
     }
-
-    const sortEmployeeData = (sortByElement: string) => {
+    const onSortEmployeeData = (sortByElement: string) => {
         switch (sortByElement) {
             case 'name':
                 setEmployeesToShow(employeesToShow.slice().sort((a, b) => a.name > b.name ? 1 : -1));
@@ -72,14 +64,15 @@ const App = () => {
                 break;
             case 'position':
                 setEmployeesToShow(employeesToShow.slice().sort((a, b) => {
-                    if(a.position && b.position && (a.position > b.position)) {
+                    if (a.position && b.position && (a.position > b.position)) {
                         return 1;
                     } else {
                         return -1;
                     }
                 }));
                 break;
-            default: setEmployeesToShow(employees);
+            default:
+                setEmployeesToShow(employees);
         }
     }
 
@@ -89,11 +82,11 @@ const App = () => {
             <div className={"content-wrapper"}>
                 <Routes>
                     <Route path={'/'}
-                           element={<Employees employeeFilter={employeeFilter} employees={employeesToShow}
-                                               onDeleteEmployee={onDeleteEmployee} onDataChange={onDataChange}
-                                               sortEmployeeData={sortEmployeeData}/>}/>
+                           element={<Employees onFilterEmployee={onFilterEmployee} employees={employeesToShow}
+                                               onDeleteEmployee={onDeleteEmployee} onEmployeeDataChange={onEmployeeDataChange}
+                                               onSortEmployeeData={onSortEmployeeData}/>}/>
                     <Route path={'/add-employees'}
-                           element={<AddEmployee addEmployee={onAddEmployee}/>}/>
+                           element={<AddEmployee onAddEmployee={onAddEmployee}/>}/>
 
                 </Routes></div>
         </div>

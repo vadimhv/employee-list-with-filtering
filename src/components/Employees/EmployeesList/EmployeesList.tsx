@@ -10,12 +10,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-interface Props {
-    employees: Array<EmployeesDataType>,
-    onDeleteEmployee: (id?: number) => void
-    onDataChange: (id: number, newName: string, newLastName: string, newPositionName: string) => void
-}
-
 export const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.info.main,
@@ -25,7 +19,6 @@ export const StyledTableCell = styled(TableCell)(({theme}) => ({
         fontSize: 14,
     },
 }));
-
 const StyledTableRow = styled(TableRow)(({theme}) => ({
     '&:nth-of-type(odd)': {
         backgroundColor: theme.palette.action.hover,
@@ -36,8 +29,15 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
     },
 }));
 
+interface Props {
+    employees: Array<EmployeesDataType>,
+    onDeleteEmployee: (id?: number) => void
+    onEmployeeDataChange: (id: number, newName: string, newLastName: string, newPositionName: string) => void
+}
+
 const EmployeesList: React.FC<Props> = (props) => {
-    const {employees, onDeleteEmployee, onDataChange} = props;
+
+    const {employees, onDeleteEmployee, onEmployeeDataChange} = props;
 
     return (
         <TableContainer component={Paper}>
@@ -47,15 +47,14 @@ const EmployeesList: React.FC<Props> = (props) => {
                         <StyledTableCell>First name</StyledTableCell>
                         <StyledTableCell>Last name</StyledTableCell>
                         <StyledTableCell>Position</StyledTableCell>
-                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell> </StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {employees.map(employee => {
                         return (
-
                             <StyledTableRow key={employee.id}>
-                                <EmployeesItem employee={employee} onDataChange={onDataChange}
+                                <EmployeesItem employee={employee} onEmployeeDataChange={onEmployeeDataChange}
                                                onDeleteEmployee={onDeleteEmployee}/>
                             </StyledTableRow>
                         );

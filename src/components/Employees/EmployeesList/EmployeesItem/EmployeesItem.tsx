@@ -4,36 +4,34 @@ import {StyledTableCell} from "../EmployeesList";
 import DeleteIcon from '@mui/icons-material/Delete';
 import '../EmployeesList.css';
 
+/* IMG */
 import edit from '../../../../assets/img/edit.png';
 import accept from '../../../../assets/img/checked.png';
 
 export interface Props {
     employee: EmployeesDataType,
-    onDataChange: (id: number, newName: string, newLastName: string, newPositionName: string) => void
+    onEmployeeDataChange: (id: number, newName: string, newLastName: string, newPositionName: string) => void
     onDeleteEmployee: (id?: number) => void
 }
 
 const EmployeesItem: React.FC<Props> = (props) => {
 
     const {id, name, lastName, position} = props.employee;
-    const {onDataChange, onDeleteEmployee} = props;
+    const {onEmployeeDataChange, onDeleteEmployee} = props;
 
     const [isEditMode, setEditMode] = useState(false);
     const [newNameInputValue, setNewNameInputValue] = useState(name);
     const [newLastNameInputValue, setNewLastNameInputValue] = useState(lastName);
     const [newPositionInputValue, setNewPositionInputValue] = useState(position);
 
-
     const onChangeNameInputValue = (e: React.FormEvent<EventTarget>) => {
         const target = e.target as HTMLInputElement;
         setNewNameInputValue(target.value)
     }
-
     const onChangeLastNameInputValue = (e: React.FormEvent<EventTarget>) => {
         const target = e.target as HTMLInputElement;
         setNewLastNameInputValue(target.value)
     }
-
     const onChangePositionInputValue = (e: React.FormEvent<EventTarget>) => {
         const target = e.target as HTMLInputElement;
         setNewPositionInputValue(target.value)
@@ -55,7 +53,6 @@ const EmployeesItem: React.FC<Props> = (props) => {
                     /> :
                     lastName}
             </StyledTableCell>
-
             <StyledTableCell data-testid={"position"} component="th" scope="row"
                              onDoubleClick={() => setEditMode(true)}>
                 {isEditMode ?
@@ -64,11 +61,12 @@ const EmployeesItem: React.FC<Props> = (props) => {
                     /> :
                     position}
             </StyledTableCell>
+            {/* EDIT AND DELETE BUTTONS */}
             <StyledTableCell className={"button-wrapper"}>
                 {
                     isEditMode ? <span onClick={() => {
                         setEditMode(false);
-                        onDataChange(id as number, newNameInputValue as string, newLastNameInputValue as string, newPositionInputValue as string)
+                        onEmployeeDataChange(id as number, newNameInputValue as string, newLastNameInputValue as string, newPositionInputValue as string)
                     }} className={"edit-button"}>
                     <img src={accept} alt=""/>
                 </span> : <span onClick={() => setEditMode(true)} className={"edit-button"}>

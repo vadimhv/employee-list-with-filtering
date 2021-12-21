@@ -8,17 +8,16 @@ import Box from "@mui/material/Box";
 import InfoMessage from '../common/InfoMessage'
 
 export interface Props {
-    addEmployee: (name: string, lastName: string, position: string) => void
+    onAddEmployee: (name: string, lastName: string, position: string) => void
 }
 
 const AddEmployee: React.FC<Props> = (props) => {
 
-    const {addEmployee} = props;
+    const {onAddEmployee} = props;
 
     const [addedMessage, setAddedMessage] = useState(false);
 
     const initialValues: EmployeesDataType = {name: '', lastName: '', position: ''};
-
     const formik = useFormik({
         initialValues: initialValues,
         validate: values => {
@@ -32,7 +31,7 @@ const AddEmployee: React.FC<Props> = (props) => {
             return errors;
         },
         onSubmit: (values, {setSubmitting}) => {
-            addEmployee(values.name, values.lastName, values.position as string);
+            onAddEmployee(values.name, values.lastName, values.position as string);
             values.name = "";
             values.lastName = "";
             values.position = "";
@@ -41,6 +40,7 @@ const AddEmployee: React.FC<Props> = (props) => {
             setSubmitting(false)
         },
     });
+
     return (
         <div>
             <Box
