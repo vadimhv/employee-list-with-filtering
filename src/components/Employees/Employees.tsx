@@ -9,15 +9,16 @@ interface Props {
     employeeFilter: (searchValue: string) => void,
     onDeleteEmployee: (id?: number ) => void,
     onDataChange: (id: number, newName: string, newLastName: string, newPositionName: string) => void
+    sortEmployeeData: (sortByElement: string) => void
 }
 
 const Employees: React.FC<Props> = (props) => {
 
-    const {employees, employeeFilter, onDeleteEmployee, onDataChange} = props;
+    const {employees, employeeFilter, onDeleteEmployee, onDataChange, sortEmployeeData} = props;
 
     return (
         <div>
-            <Search employeeFilter={employeeFilter}/>
+            <Search employeeFilter={employeeFilter} sortEmployeeData={sortEmployeeData}/>
             <EmployeesList employees={employees} onDeleteEmployee={onDeleteEmployee} onDataChange={onDataChange}/>
             {employees.length > 10 ? <Paginator/> : null}
         </div>

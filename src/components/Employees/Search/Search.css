@@ -6,3 +6,27 @@
     width: 100% !important;
     margin: 15px 0 !important;
 }
+
+.select-form {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.select {
+    width: 90%;
+    border: 1px solid #c5c5c5;
+    border-radius: 5px;
+    cursor: pointer;
+    padding-left: 10px;
+}
+
+.select-button {
+    width: 10%;
+    border-radius: 5px;
+    border: 1px solid #c5c5c5;
+    cursor: pointer;
+}
+
+.select, .select-button {
+    height: 30px;
+}
