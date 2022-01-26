@@ -1,5 +1,4 @@
 import React from 'react';
-import SearchFilter from "./Filters/SearchFilter/SearchFilter";
 import EmployeesList from "./EmployeesList/EmployeesList";
 import Paginator from "./Paginator/Paginator";
 import {EmployeesDataType} from "../../App";
